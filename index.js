@@ -1,8 +1,10 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const app = express();
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
 const port = 3000;
 
 app.listen(port, () => {
@@ -10,5 +12,10 @@ app.listen(port, () => {
 });
 
 app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'form.html'));
+});
+
+app.post('/', (req, res) => {
+    console.log(req.body);
     res.sendFile(path.resolve(__dirname, 'form.html'));
 });
